@@ -1,4 +1,5 @@
 from abc import abstractmethod, ABC
+import random
 
 
 class Strategy(ABC):
@@ -51,3 +52,30 @@ class BaseStrategy(Strategy):
 
     def display(self):
         return "the basic method -- choose your envelope with your feeling."
+
+
+class N_max_strategy(Strategy):
+    def __init__(self, envelopes):
+        self.envelopes = envelopes
+
+    def play(self):
+        print('You chose the max number after open some envelopes strategy!')
+        self.perform_strategy(self.envelopes)
+
+    def perform_strategy(self, counter):
+        counter = self.envelopes
+        num_of_envelopes = len.counter * random.randint(1, 75) // 100
+        max = 0
+        for i in range(num_of_envelopes - 1):
+            if counter[i].money > max:
+                max = counter[i].money
+
+        i = num_of_envelopes
+        while max > counter[i].money or len(counter) == i:
+            i += 1
+
+        print(f"You'll bring to te wedding envelope {i} which has {counter[i].money}$ in it")
+
+    def display(self):
+        return "the num mas strategy -- the computer opens a random amount of envelopes and saves the highest. the, " \
+               "he opens the rests until he find an envelope beyond the saved maximum or until the last one "
