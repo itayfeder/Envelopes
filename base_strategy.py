@@ -12,11 +12,9 @@ class BaseStrategy(Strategy):
     def perform_strategy(self, counter):
         n = 0  # counter
         chose = False  # have the user chose an envelope
-        option = None  # later, the argument of the user's input
-        while n != len(counter) or chose == False:
-            option = input(
-                f'This envelope has {self.envelopes[n].money}$! would you send it to the wedding? (yes / no)')
-            if input == "yes":
+        while n != len(self.envelopes) or chose == False:
+            option = input(f'This envelope has {self.envelopes[n].money}$! would you send it to the wedding? (yes / no)')
+            if option == "yes":
                 chose = True
                 print(f"You chose envelope {n + 1} which had {self.envelopes[n].money}$ to bring to the wedding.")
             elif n == len(self.envelopes):
@@ -27,4 +25,4 @@ class BaseStrategy(Strategy):
         return self.envelopes[n].money
 
     def display(self):
-        print(f'the basic method -- choose your envelope with your feeling.')
+        return "the basic method -- choose your envelope with your feeling."
