@@ -42,7 +42,7 @@ class Automatic_BaseStrategy(Strategy):
         :return: returns the function preform_strategy
         '''
         print("The Automatic Base Strategy has been chosen.")
-        print(self.perform_strategy(self.envelope_array))
+        self.perform_strategy(self.envelope_array)
 
     def perform_strategy(self, counter):
         '''
@@ -50,6 +50,7 @@ class Automatic_BaseStrategy(Strategy):
         :param counter:holds envelope array
         :return: returns amount of money
         '''
+        print(counter[self.randnum].money)
         return counter[self.randnum].money
 
     def display(self):
@@ -76,7 +77,7 @@ class N_max_strategy(Strategy):
         :return: returns the function preform_strategy
         '''
         print("The N max strategy has been chosen.")
-        print(self.perform_strategy(self.envelope_array))
+        self.perform_strategy(self.envelope_array)
 
     def perform_strategy(self, counter):
         '''
@@ -91,10 +92,12 @@ class N_max_strategy(Strategy):
             peak_counter += 1
         for num in range(1, len(counter) - 1):
             if peak_counter == self.N:
+                print(max_envelope)
                 return max_envelope
             if (counter[num - 1].money < counter[num].money) and (counter[num].money > counter[num + 1].money):
                 peak_counter += 1
                 max_envelope = counter[num].money
+        print(counter[-1].money)
         return counter[-1].money
 
     def display(self):
