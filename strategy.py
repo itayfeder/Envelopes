@@ -21,3 +21,38 @@ class Strategy(ABC):
         '''
         abstract method, displays the strategy.
         '''
+
+
+class automatic_BaseStrategy(Strategy):
+
+    def __init__(self, envelope_array):
+        '''
+
+        :param envelope_array: array of envelopes that is recived
+        '''
+        self.envelope_array = envelope_array
+        self.randnum = randrange(0, 100)
+
+    def play(self):
+        '''
+        promps text and runs preform_strategy
+        :return: returns the function preform_strategy
+        '''
+        print("The Automatic Base Strategy has been chosen.")
+        return self.perform_strategy()
+
+    def perform_strategy(self, counter):
+        '''
+        chooses a random packet
+        :param counter:holds envelope array
+        :return: returns amount of money
+        '''
+        counter = self.envelope_array
+        return counter[self.randnum].money
+
+    def display(self):
+        '''
+        strategy description
+        :return:
+        '''
+        print("this is the Automatic Base Strategy. a random packet is chosen and opened.")
