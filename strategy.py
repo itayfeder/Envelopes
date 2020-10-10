@@ -53,9 +53,10 @@ class BaseStrategy(Strategy):
         return "the basic method -- choose your envelope with your feeling."
 
 
-class N_max_strategy(Strategy):
-    def __init__(self, envelopes):
+class More_then_N_percent_group_strategy(Strategy):
+    def __init__(self, envelopes, precent=0.25):
         self.envelopes = envelopes
+        self.precent = precent
 
     def play(self):
         print('You chose the max number after open some envelopes strategy!')
@@ -63,7 +64,7 @@ class N_max_strategy(Strategy):
 
     def perform_strategy(self, counter):
         counter = self.envelopes
-        num_of_envelopes = len.counter * random.randint(1, 75) // 100
+        num_of_envelopes = len.counter * self.precent // 100
         max = 0
         for i in range(num_of_envelopes - 1):
             if counter[i].money > max:
