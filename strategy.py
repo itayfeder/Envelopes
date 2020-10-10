@@ -25,7 +25,6 @@ class Strategy(ABC):
         abstract method, displays the strategy.
         '''
 
-
 class BaseStrategy(Strategy):
     def __init__(self, envelopes):
         self.envelopes = envelopes
