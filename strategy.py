@@ -1,6 +1,7 @@
 from abc import abstractmethod, ABC
 from random import randrange
-from envelope import Envelope
+
+
 class Strategy(ABC):
 
     @abstractmethod
@@ -25,7 +26,7 @@ class Strategy(ABC):
         '''
 
 
-class automatic_BaseStrategy(Strategy):
+class Automatic_BaseStrategy(Strategy):
 
     def __init__(self, envelope_array):
         '''
@@ -41,7 +42,7 @@ class automatic_BaseStrategy(Strategy):
         :return: returns the function preform_strategy
         '''
         print("The Automatic Base Strategy has been chosen.")
-        return self.perform_strategy(self.envelope_array)
+        print(self.perform_strategy(self.envelope_array))
 
     def perform_strategy(self, counter):
         '''
@@ -54,11 +55,51 @@ class automatic_BaseStrategy(Strategy):
     def display(self):
         '''
         strategy description
-        :return:
+        :return:none
         '''
-        print("this is the Automatic Base Strategy. a random packet is chosen and opened.")
+        return "this is the Automatic Base Strategy. a random packet is chosen and opened."
 
-envelopes = []
-for i in range(100):
-    envelopes.append(Envelope())
-print(automatic_BaseStrategy(envelopes).play())
+
+class N_max_strategy(Strategy):
+    def __init__(self, envelope_array, N = 3):
+        '''
+
+        :param envelope_array: array of envelopes that is recived
+        :param N: number of peaks foe perform_strategy
+        '''
+        self.envelope_array = envelope_array
+        self.N = N
+
+    def play(self):
+        '''
+        promps text and runs perform_strategy
+        :return: returns the function preform_strategy
+        '''
+        print("The N max strategy has been chosen.")
+        print(self.perform_strategy(self.envelope_array))
+
+    def perform_strategy(self, counter):
+        '''
+        this strategy checks for peaks, and opens the envelope on the Nth one
+        :param counter: envelope array placeholder
+        :return: returns packet in Nth peak
+        '''
+        peak_counter = 0
+        max_envelope = counter[0].money
+
+        if counter[0].money > counter[1].money:
+            peak_counter += 1
+        for num in range(1, len(counter) - 1):
+            if peak_counter == self.N:
+                return max_envelope
+            if (counter[num - 1].money < counter[num].money) and (counter[num].money > counter[num + 1].money):
+                peak_counter += 1
+                max_envelope = counter[num].money
+        return counter[-1].money
+
+    def display(self):
+        '''
+        strategy description
+        :return:none
+        '''
+        return "this is the N max strategy. it selects the Nth peak packet and opens it."
