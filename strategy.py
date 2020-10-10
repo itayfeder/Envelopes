@@ -49,7 +49,7 @@ class Automatic_BaseStrategy(Strategy):
         :param counter:holds envelope array
         :return: returns amount of money
         '''
-        print(counter[self.randnum].money)
+        print(f"You chose envelope {self.randnum} which had {counter[self.randnum].money}$ to bring to the wedding.")
         return counter[self.randnum].money
 
     def display(self):
@@ -86,17 +86,21 @@ class N_max_strategy(Strategy):
         '''
         peak_counter = 0
         max_envelope = counter[0].money
+        max_envelope_num = 0
 
         if counter[0].money > counter[1].money:
             peak_counter += 1
         for num in range(1, len(counter) - 1):
             if peak_counter == self.N:
-                print(max_envelope)
+                print(f"You chose envelope {max_envelope_num} which had {max_envelope}$ to bring to the wedding.")
                 return max_envelope
             if (counter[num - 1].money < counter[num].money) and (counter[num].money > counter[num + 1].money):
+                print(f"envelope {num} is a max with {counter[num].money}$")
                 peak_counter += 1
                 max_envelope = counter[num].money
-        print(counter[-1].money)
+            max_envelope_num += 1
+        print(f"you checked all the envelopes! you'll take to the wedding the envelope you opened last which "
+                      f"had {counter[-1].money}$")
         return counter[-1].money
 
     def display(self):
@@ -124,21 +128,22 @@ class BaseStrategy(Strategy):
             if option == "yes":
                 chose = True
                 print(f"You chose envelope {n + 1} which had {counter[n].money}$ to bring to the wedding.")
+                return counter[n].money
             elif n == len(counter):
                 print(f"you checked all the envelopes! you'll take to the wedding the envelope you opened last which "
                       f"had {counter[n].money}$")
-            counter.used = True
+                return counter[n].money
+            counter[n].used = True
             n += 1
-        return counter[n].money
 
     def display(self):
         return "the basic method -- choose your envelope with your feeling."
 
 
 class More_then_N_percent_group_strategy(Strategy):
-    def __init__(self, envelopes, precent=0.25):
+    def __init__(self, envelopes, percent):
         self.envelopes = envelopes
-        self.precent = precent
+        self.percent = percent
 
     def play(self):
         print('You chose the max number after open some envelopes strategy!')
@@ -146,17 +151,18 @@ class More_then_N_percent_group_strategy(Strategy):
 
     def perform_strategy(self, counter):
         counter = self.envelopes
-        num_of_envelopes = len.counter * self.precent // 100
+        num_of_envelopes = int(len(counter) * float(self.percent))
         max = 0
         for i in range(num_of_envelopes - 1):
             if counter[i].money > max:
                 max = counter[i].money
-
+        
+        print(f"The max money in {self.percent}% of the envelopes is {max}$")
         i = num_of_envelopes
         while max > counter[i].money or len(counter) == i:
             i += 1
 
-        print(f"You'll bring to te wedding envelope {i} which has {counter[i].money}$ in it")
+        print(f"You'll bring to the wedding envelope {i} which has {counter[i].money}$ in it")
 
     def display(self):
         return "the num mas strategy -- the computer opens a random amount of envelopes and saves the highest. the, " \
