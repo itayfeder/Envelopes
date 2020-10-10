@@ -1,5 +1,6 @@
 from abc import abstractmethod, ABC
 from random import randrange
+from envelope import Envelope
 class Strategy(ABC):
 
     @abstractmethod
@@ -40,7 +41,7 @@ class automatic_BaseStrategy(Strategy):
         :return: returns the function preform_strategy
         '''
         print("The Automatic Base Strategy has been chosen.")
-        return self.perform_strategy()
+        return self.perform_strategy(self.envelope_array)
 
     def perform_strategy(self, counter):
         '''
@@ -48,7 +49,6 @@ class automatic_BaseStrategy(Strategy):
         :param counter:holds envelope array
         :return: returns amount of money
         '''
-        counter = self.envelope_array
         return counter[self.randnum].money
 
     def display(self):
@@ -57,3 +57,8 @@ class automatic_BaseStrategy(Strategy):
         :return:
         '''
         print("this is the Automatic Base Strategy. a random packet is chosen and opened.")
+
+envelopes = []
+for i in range(100):
+    envelopes.append(Envelope())
+print(automatic_BaseStrategy(envelopes).play())
